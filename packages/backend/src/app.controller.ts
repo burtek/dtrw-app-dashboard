@@ -1,7 +1,7 @@
 /* eslint-disable n/no-extraneous-import -- FIXME */
 /* eslint-disable @typescript-eslint/no-unsafe-type-assertion */
 import { Controller, Get, Req } from '@nestjs/common';
-import type { Request } from 'express';
+import type { Request as ExpressRequest } from 'express';
 
 import { AppService } from './app.service';
 
@@ -21,10 +21,10 @@ export class AppController {
     }
 
     @Get('whoami')
-    whoAmI(@Req() request: Request): Data {
+    whoAmI(@Req() request: ExpressRequest): Data {
         return {
-            name: request.headers['Remote-User'] as string | undefined ?? '',
-            groups: (request.headers['Remote-Groups'] as string | undefined)?.split(',') ?? []
+            name: request.headers['remote-user'] as string | undefined ?? '',
+            groups: (request.headers['remote-groups'] as string | undefined)?.split(',') ?? []
         };
     }
 }
